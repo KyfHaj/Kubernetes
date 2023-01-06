@@ -1,0 +1,33 @@
+*Kết luận: Taints + Tolerations đảm bảo chặn các Pod ko thích hợp đặt trên Node
+
+Tains: cho Node để chỉ cho phép những Pod thích hợp (có Tolerations) được đặt trên nó
+Tolerations: cho Pod làm những Pod này có khả năng đặt được trên Node có Tains thích hợp
+
+1 Pod có Tolerations vẫn có thể đặt trên các Node ko có Tains thích hợp
+1 Pod được đặt trên 1 Node có yêu cầu Tains phải có Tolerations thích hợp
+
+Tains có 3 loại: NoSchedule, PreferNoSchedule, NoExecute
+NoSchedule: Sẽ ko đặt lịch nếu ko hợp
+PreferNoSchedule: Có thể được đặt (ko đảm bảo như cái NoSchedule)
+NoExecute: Bỏ tất cả các pod (ko thích hợp) hiện có
+
+- Xem node
+kubectl get node
+- Coi có Taints ở node node01 hay không
+kubectl describe node node01 | grep Taints
+
+- Tạo Taints cho node01 với key-value: spray=mortein
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+- Thêm dấu - đằng sau để loại bỏ
+kubectl taint nodes node01 spray=mortein:NoSchedule-
+
+------------------------------------------------------------------
+
+kubectl taint node production-node node-type=production:NoSchedule
+
+tolerations:
+- key: "app"
+  operator: "Equal"
+  value: "blue"
+  effect: "NoSchedule"

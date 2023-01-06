@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  containers:
+    - name:
+      image:
+
+
+Tạo pods:
+- kubectl apply -f=pod.myaml
+- kubectl create -f pod-definition.yaml
+
+Xem pods:
+- kubectl get pods
+
+Mô tả Pod cụ thể:
+-kubectl describe pod myapp-pod
+
+Xóa Pods:
+- kubectl delete pod webapp 
+
+Xem pod thuộc Node nào:
+- kubectl get pod mosquito -o wide
+		
+
+kubectl get pods
+kubectl describe pod webapp
+kubectl delete pod webapp
+
+kubectl run redis --image=redis123 
+kubectl run redis --image=redis123 --dry-run=client -o yaml > redis.yaml
+kubectl apply -f redis.yaml

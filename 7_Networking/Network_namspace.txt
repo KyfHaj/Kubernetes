@@ -1,0 +1,16 @@
+Nhìn từ 1 container, ta thấy 1 process với root khi command: ps aux
+Nhìn từ 1 instance, ta thấy nhiều process ngoài và trong container, process trong container được bọc bởi namespace của nó
+
+Tạo network namespace:
+- ip netns add red
+Xem network namespace:
+- ip netns
+
+Có thể xem các network-interface của container:
+- ip netns exec red ip link
+
+Tạo 1 network cho container tức là tạo 1 namespace-network riêng cho nó tách biệt với các mạng khác. Container này cũng có network-interface riêng của nó dưới dạng ảo để giao tiếp với host. Ở host (instance) ta sẽ có 1 network-interface để giao tiếp với container (Chính xác)
+
+Làm sao để các container giao tiếp với nhau. Ta dùng Linux Bridge, nó sẽ như 1 switch sẽ giao tiếp với container qua thêm 1 network-interface nữa gắn với nó (container, tức là 1 cái n-i gắn ở container và 1 cái n-i gắn ở bridge). Ở host sẽ có 1 network-interface cho Bridge này
+
+

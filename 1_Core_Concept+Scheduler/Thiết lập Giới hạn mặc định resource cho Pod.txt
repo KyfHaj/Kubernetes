@@ -1,0 +1,2 @@
+Đặt limit resource default cho Pod:
+- https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/

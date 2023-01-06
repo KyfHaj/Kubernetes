@@ -1,0 +1,10 @@
+Daemon: DaemonSet 
+
+Tạo 1 DaemonSet có 1 Pod lên mỗi Node để monitoring hoặc Logging
+
+
+
+
+
+Xem thông tin daemonset kube-proxy ở namespace=kube-system
+- kubectl describe daemonset kube-proxy --namespace=kube-system

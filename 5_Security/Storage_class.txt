@@ -1,0 +1,2 @@
+Storage Class:
+ Để yêu cầu disk tự động, thay vì tạo 1 pv thì tạo strorage-class và dùng PVC lấy nó

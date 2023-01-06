@@ -1,0 +1,17 @@
+- https: là mã hóa trên đường transfer, thường dùng mã hóa ko đối xứng (Private,Public Key)
+- Hacker có thể tấn công bằng việc điều hướng route đến 1 web giả mạo.
+- Để biết web có phải giả mạo hay ko thì cần certificate, hacker có thể làm giả certificate của server
+- Giải quyết certificate bằng bên thứ ba: CA,sysmantec,Desert,Comodo,Global Sign
+bằng việc yêu cầu nó cấp certificate
+- Các browser có thể nhận biết certificate đã được đảm bảo, bởi browser đã được cung cấp các public key(của các nhà cung cấp CA) trong trình duyệt và nó sẽ dùng để xác định liệu certificate có thật hay không
+
+- Server cũng có thể authen client (thật hay không) bằng CA (Certificate Authority) client
+
+
+Public_key có thể mã hóa và giải mã bằng Private_key
+Private_key cũng có thể mã hóa và giải mã bằng Public_key và như vậy nếu ai đó có Public_Key của bạn cũng có thể 
+.crt: certificate
+.pem: key
+
+
+**Như vậy certificate đảm bảo client connect đúng server (server-certificate) và server connect đúng client (client-certificate) 

@@ -1,0 +1,17 @@
+Metrics Server: Tổng hợp số liệu và lưu trữ chúng trong Memory (ko lưu trên disk nên ko hiệu suất)
+Để cải thiện phải dựa vào Prometheus
+
+Sử dụng Metrics-server phải Install
+
+Cvisor or Container Advisor ở trên Kubelet sẽ truy xuất dữ liệu gửi lên Metrics Server 
+
+--------------------
+
+Xem CPU của Node:
+- kubectl top node
+Xem CPU của Pod:
+- kubectl top pod
+
+--------------------
+
+Metrics-server thực chất là 1 deployment có 1 pods(1 replica) 1 container 1 image: k8s.gcr.io/metrics-server-amd64:v0.3.1

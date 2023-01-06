@@ -1,0 +1,33 @@
+Khi tạo ra 1 mạng trong docker, máy sẽ tạo ra 1 network_interface để giao tiếp đến nó. Xem network-interface:
+- ip link
+Để thấy mạng của nó:
+- ip addr
+
+3: docker0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default                             
+link/ether 02:42:77:95:2e:1c brd ff:ff:ff:ff:ff:ff                                                                      
+inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0                                                                 
+valid_lft forever preferred_lft forever                                                                          
+4: br-b3ad1ddd395f: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default                     
+link/ether 02:42:fb:47:0f:c2 brd ff:ff:ff:ff:ff:ff                                                                      
+inet 172.18.0.1/16 brd 172.18.255.255 scope global br-b3ad1ddd395f                                                         
+valid_lft forever preferred_lft forever    
+5: br-dc280d0281ea: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default                     
+link/ether 02:42:47:d2:05:b2 brd ff:ff:ff:ff:ff:ff                                                                      
+inet 172.19.0.1/16 brd 172.19.255.255 scope global br-dc280d0281ea                                                         
+valid_lft forever preferred_lft forever  
+
+Để thấy rõ hơn về gateway:
+- route                            
+
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface                                           
+default         ip-10-0-0-1.ap- 0.0.0.0         UG    100    0        0 eth0                                            
+10.0.0.0        0.0.0.0         255.255.255.192 U     100    0        0 eth0                                            
+ip-10-0-0-1.ap- 0.0.0.0         255.255.255.255 UH    100    0        0 eth0                                            
+ip-10-0-0-2.ap- 0.0.0.0         255.255.255.255 UH    100    0        0 eth0                                            
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0                                         
+172.18.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-b3ad1ddd395f                                 
+172.19.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-dc280d0281ea 
+
+Như bọn này bản chất đều là switch. Ta có thể hiểu là: instance hiện giờ connect tới docker-network.
+Docker-network này:
+- Như một switch vì network-interface của instance giao tiếp với nó qua gateway 0.0.0.0

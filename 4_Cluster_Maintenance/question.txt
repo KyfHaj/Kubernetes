@@ -1,0 +1,26 @@
+I saw steps to backup and restore and successfully handson! I can summarize that:
+
+1.  Make a snapshot by etcdctl (command in a local)
+
+2. Build snapshot -> file "member" by etcdctl (command in a local) and replace in "/var/lib/etcd-from-backup"
+
+3. Change path in volume in  "/etc/kubernetes/manifests/etcd.yaml" :
+
+     -  from  "/var/lib/etcd "  to "/var/lib/etcd-from-backup"
+
+Thus, the directly things impact to cluster is file "member". Why don't we simply do it by: 
+
+1. Copy file "member" from  "/var/lib/etcd" to any dir in local
+
+2. Change  path in volume in  "/etc/kubernetes/manifests/etcd.yaml" : 
+
+ -  from  "/var/lib/etcd "  to  that dir
+
+I try this in your lab and I work! I don't know weather I was wrong handson but  true result as same as your way ? 
+
+
+mkdir /var/lib/etcd-from-backup
+cp /var/lib/etcd/member /var/lib/etcd-from-backup/member -r
+vi /etc/kubernetes/manifests/etcd.yaml
+watch "crictl ps | grep etcd"
+kubectl delete pod -n kube-system etcd-controlplane

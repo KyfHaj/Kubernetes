@@ -1,0 +1,14 @@
+apiVersion: v1
+kind:
+metadata:
+  name: service_webapp
+spec:
+  selector:
+    matlabels:
+      app: my-nginx
+      type: front-end
+  type: LoadBalancer
+  port:
+    - protocol: TCP
+      port: 80
+      targetport: 80

@@ -1,0 +1,25 @@
+- Trong môi trường CLoud, Ingress thiết lập để dễ dàng thêm path, mà chỉ cần cấu hình 1 lần.
+- Dùng Nginx-ingress hay những thứ tương tự để triển khai. Nó được gọi là Ingress-Controller. Phần cấu hình là Ingress-Resources (yaml file như deployment)
+    ** Ingress-controller (kind: Deployment)
+    *Tạo 1 deployment.yaml: Ta phải setup:
+        + err-log-path, keep alive, ssl-protocols qua:
+            args: (trong file yaml)
+        + env
+        + port
+    *Configmap trống
+    *Service để bên ngoài thấy
+    *Service-account để ingress này có quyền monitoring k8s qua: Roles, ClusterRole, RoleBinding
+
+    ** Ingress-resource (kind: Ingress)
+    *Tạo 1 ingress.yaml để route người dùng thep path theo Rules
+        - Có default backend sẽ trả lại pod mong muốn ko có trong rules
+        - Hoặc có thể các host khác nhau đến các pod chỉ định
+        - Trong file: rules:
+                        host:
+                            paths:
+
+- Có thể được:
+    ingress-nginx-controller ở 1 namespace khác
+    ingress-resources ở 1 namespace khác
+- Chỉ cần đảm bảo ingress-resources với các pod mà nó route tới cùng 1 namespace
+- 1 ingress controller có thể có nhiều ingress-rules, ingress-rules (ingress-resources) nằm trên các namespace khác nhau??

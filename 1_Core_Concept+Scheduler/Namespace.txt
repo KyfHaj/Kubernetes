@@ -1,0 +1,17 @@
+Xem namespace:
+- kubectl get namespace
+
+Xem pod trong namespace = research
+- kubectl get pod --namespace=research
+
+Xem pod trong tất cả:
+- kubectl get pod --all-namespaces
+
+
+Chuyển mặc định teenL namespace = dev:
+- kubectl config set-context $(kubectl config current-context) --namespace=dev
+
+
+Trong metadata của Pod,Deployment,Service thêm namespace: "..."
+
+Tiếp cận với db-service ở namespace=dev sử dụng dns: db-service.dev.svc.cluster.local

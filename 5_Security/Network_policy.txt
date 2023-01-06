@@ -1,0 +1,21 @@
+Mặc định k8s cho tất cả các pod giao lưu với nhau (như security_froup mở allport)
+Network policy để chỉ muốn hạn chế sự thoải mái điều trên bằng cho và chặn cụ thể ở port nào, pod nào được nhận traffic
+Type: ingress = cô lập chỉ cho đi vào ở port nào và nhận traffic từ pod nào, một khi đã có kết nối thì dữ liệu trả lại sẽ tự động ok
+      engress = cô lập đi ra 
+Ví dụ:
+- Pod web, pod app, pod database và mong muốn:
+    app chỉ nhận API request từ web qua port:5000
+    database chỉ nhận request từ app qua port:3306
+    web và database ko thể traffic với nhau
+
+Trong cụm:
+-namespaceSelector:
+    + Nếu sử dụng 1 mình ko có podSelector thì nghĩa là mọi pod trong namespace này đều quyền
+    + Nếu sử dụng cùng podSelector phải theo nó, tức là sẽ chọn pod nào trong namspace này
+-podSelector:
+
+Ngoài cụm
+-ipBlock: Theo IP 1 server ngoài cụm
+
+
+** Tham khảo: https://kubernetes.io/docs/concepts/services-networking/network-policies/

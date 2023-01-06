@@ -1,0 +1,11 @@
+Recreate: Up hết 1 lần tất cả 
+- App sẽ ko thể hoạt động trong quá trình upload version 
+
+Rolling Update (default): Up từng cái 1
+- Replicas sẽ thay đổi từ từ cho đến hết
+- Pod trong mỗi Replicas cũng từng cái 1
+
+
+
+Rollback:
+- Khi cần lấy lại version cũ 

@@ -1,0 +1,37 @@
+*Kết luận: Selector hoặc Affinity đảm bảo Pod đặt đúng Node
+
+Cách để Pod chọn được Node như ý:
+
+1/ Dùng Selector: (cứng)
+
+- Dán nhãn cho node:
+kubectl label nodes node01 size=Large
+
+- Trong file pod:
+		nodeSelector"
+  		  size: Large
+
+
+2/ Dùng Affinity:
+- Cũng dán nhãn cho Node
+    kubectl label nodes node01 color=blue
+- Trong file Pod:
+
+	  affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - blue 
+
+Availabe:
+- requiredDuringSchedulingIgnoredDuringExecution:
+- preferredDuringSchedulingIgnoredDuringExecution:
+
+Planed:
+- requiredDuringSchedulingRequiredDuringExecution:
+(bài 61)
+

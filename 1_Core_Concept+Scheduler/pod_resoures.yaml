@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: my-nginx
+    type: front-end
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  resources:
+    request:          # Khi Schedule đặt Pod trên Node nó sẽ xem xét cái này trên Node
+      memory: "1Gi"
+      cpu: 1          # min=0.1 hoac 100m
+    limits:           # Giới hạn tài nguyên của Node khi Pod chạy(Pod chạy sẽ có thể dùng nhiều)
+      memory: "2Gi"   # 1 Pod có thể vượt qua memory nhưng lúc đó Pod đó sẽ bị terminate
+      cpu: 2          # Pod ko thể dùng quá 2 vCPU

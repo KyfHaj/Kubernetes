@@ -1,0 +1,23 @@
+** RBAC là:
+    Tạo ra 1 role.yaml : role có quyền gì
+    Tạo ra 1 role_user_binding.yaml: mount giữa role và user nghĩa là user nào có quyền gì
+
+Xem các role (đã tạo):
+- kubectl get roles --all-namespaces
+Xem các rolebindings (đã tạo):
+- kubectl get rolebindings --all-namespaces
+Describe 1 role cụ thể:
+- kubectl describe role kube-proxy -n kube-system
+Describe 1 rolebindings cụ thể:
+- kubectl describe rolebinding devuser-developer-binding
+
+Check access:
+- kubectl auth can-i create deployments
+- kubectl auth can-i delete nodes
+Giả sử là admin(full quyền) nhưng giả vờ làm dev-user để xem nó có quyền ko:
+- kubectl auth can-i create deployments --as dev-user
+- kubectl auth can-i create pods --as dev-user
+- kubectl auth can-i create pods --as dev-user --namespace test
+
+Edit:
+- kubectl edit role

@@ -1,0 +1,12 @@
+Xem events để kiểm tra custom_scheduler tạo pod:
+- kubectl get events -o wide
+
+Xem Logs của custom_scheduler để debug:
+- kubectl logs custom_scheduler --name-space=kube-system
+
+Check my-scheduler trong -n kube-system:
+- kubectl get sa my-scheduler -n kube-system
+
+kubectl create configmap  my-scheduler-config --from-file=/root/my-scheduler-configmap.yaml -n kube-system
+Tạo 1 new schedule:
+https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/

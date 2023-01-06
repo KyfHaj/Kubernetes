@@ -1,0 +1,9 @@
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+
+kubectl create deployment --image=httpd:2.4-alpine httpd-frontend --replicas=3 --dry-run=client -o yaml > dep1.yaml
+
+kubectl get deployment
+
+kubectl describe deploy simple-webapp-deployment
+
+kubectl describe pod frontend-deployment-6d8c45b946-fchn7

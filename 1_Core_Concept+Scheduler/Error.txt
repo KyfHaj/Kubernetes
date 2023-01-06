@@ -1,0 +1,1 @@
+OOMKilled: Hết bộ nhớ cho Pod

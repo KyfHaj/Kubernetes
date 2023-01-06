@@ -1,0 +1,2 @@
+Tìm pod được có labels: env=dev:
+- kubectl get pods --selector env=dev

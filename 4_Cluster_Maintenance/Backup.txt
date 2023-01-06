@@ -1,0 +1,53 @@
+**Resource Config:
+Declare:
+Ta nên lưu các file config trên 1 repo như GitHub
+
+
+Imclare:
+Ko có file nên query và kube-apiserver
+Lấy deployment and service qua kube-apiserver:
+- kubctl get all --all-namespaces -o yaml > all-deploy-services.yaml
+
+Các tài nguyên khác nguyên khác thì dùng tools Velero
+
+-----------------------------------------------
+
+
+**Backup-ETCD > **Resource Config:
+ETCD lưu tất cả thông tin về node, cluster, state
+
+1/ config --data-dir=/var/lib/etcd		(--data-dir=/var/lib/etcd ở container)
+2/ Tạo 1 snapshot:
+	ETCDCTL_API=3 etcdctl \
+		snapshot save snapshot.db
+	 1 snapshot sẽ được tạo ra tại thư mục hiện tại
+
+   Nên sử dụng: 
+(Phải xem trong: "kubectl -n kube-system describe pod etcd-controlplane" để điều chỉnh thông số)
+	ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+snapshot save snapshot.db
+      		
+3/ Xem a backup:
+	ETCDCTL_API=3 etcdctl \
+		snapshot status snapshot.db
+4/ Để restore cluster từ backup này:	
+- Stop kube-apiserver:	   (??? Handson thì ko thấy bước này)
+	service kube-apiserver stop
+- Chạy command restore:
+	ETCDCTL_API=3 etcdctl \
+ 	 snapshot restore snapshot.db \
+	 --data-dir /var/lib/etcd-from-backup \			(--data-dir /var/lib/etcd-from-backup ở local)
+
+	hoặc: 
+	ETCDCTL_API=3 etcdctl snapshot restore /opt/snapshot-pre-boot.db --data-dir /var/lib/etcd-from-backup (/opt/snapshot-pre-boot.db là thư mục chứa file snapshot)
+
+- Cấu hình etcd:
+	 --data-dir=/var/lib/etcd-from-backup
+- Chạy lại:
+	systemctl daemon-reload
+	service etcd restart
+	service kube-apiserver start
+

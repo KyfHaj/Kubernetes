@@ -1,0 +1,18 @@
+Map các certificate vs key cho các components trong K8s cluster:
+- Trang 54,55 slide
+
+Với hình trong 54:
+a/ admin, kube-schelduler, kube-controll-manager,kube-proxy là client (chỉ gửi request) phải có: client.crt , client.key , ca.crt (trang 70) (ca.crt để client xác nhận server.crt)
+
+b/ 
+- etcd là server (chỉ nhận request) nên phải có:
+server.crt, server.key, ca.crt (ca.crt để server xác nhận client.crt)
+Nhưng nó có thể Cluster nên có thêm các thành phần peer để xác định mấy thằng khác cùng trong ETCD-Cluster (trang 73)
+- kubelet xác thực theo group vì có thể có nhiều node, là server nên phải có:
+server.crt, server.key, ca.crt (trang 78) (ca.crt để server xác nhận client.crt)
+
+c/ kube-apiserver vừa là client vừa là server nên có 2 loại:
+loại cho client cho nhóm b: 
+	1/ client.crt , client.key , ca.crt cho etcd-server (server)
+	2/ client.crt , client.key , ca.crt cho kubelet (server)
+loại cho server: 3/ server.crt, server.key, ca.crt cho nhóm a (client)

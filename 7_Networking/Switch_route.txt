@@ -1,0 +1,41 @@
+SWITCH
+----------------------------------
+xem tất cả các network interface
+- ip link
+
+Đăng ký ip cho chính nó (192.168.1.10/24) đến switch (192.168.1.0/24) dùng eth0:
+- ip addr add 192.168.1.10/24 dev eth0
+
+
+ROUTER
+----------------------------------
+
+Xem các router đã connect:
+- route hoặc ip route
+
+Chỉ định 1 máy có ip: 192.168.1.10 có thể giao tiếp với mạng 192.168.2.10/24 qua gateway 192.168.1.1 của mạng 192.168.1.0 :
+- ip route 192.168.2.10/24 via 192.168.1.1
+
+Chỉ định 1 máy có ip: 192.168.2.10 có thể giao tiếp với mạng 192.168.1.10/24 qua gateway 192.168.2.1 của mạng 192.168.2.0 :
+- ip route 192.168.1.10/24 via 192.168.2.1
+
+Giả sử Internet là 1 mạng có ip: 172.217.194.0/24, chỉ định 1 máy có ip: 192.168.2.10 có thể giao tiếp với Internet, ta connect đến nó qua qua gateway 192.168.2.2 của mạng 192.168.2.0:
+- ip route  172.217.194.0/24 via 192.168.2.2
+
+Thiết lập connect đến mạng bất kì qua router qua gate way, mạng như trên
+- ip route default via 192.168.2.2
+- ip route 0.0.0.0 via 192.168.2.1
+
+Trong labtop:
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface              
+default         DESKTOP-K4E173R 0.0.0.0         UG    0      0        0 eth0               
+172.23.48.0     0.0.0.0         255.255.240.0   U     0      0        0 eth0 
+
+default: mạng Internet	qua gateway có IP: DESKTOP-K4E173R (bảo mật ko hiện số)
+172.23.48.0: như 1 switch (mạng nội bộ) nên ko cần Gateway (0.0.0.0)
+
+Kiểm tra các network-interface có thể chuyển gói tin (forward package):
+- cat /proc/sys/net/ipv4/ip_forward
+
+
+**Như vậy gateway (thuộc Route) là: IP mà máy cần đi tới để ra internet

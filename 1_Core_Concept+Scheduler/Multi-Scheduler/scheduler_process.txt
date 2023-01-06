@@ -1,0 +1,7 @@
+Có thể: Tạo ra một priority để ưu tiên Pod nào sẽ được scheduler triển khai trước
+
+- Scheduler hoạt động theo trình tự:
+Queue: PrioritySort
+Filering như: NodeResourcesFit, NodeName, Affinity, NodePorts, Taints+Tolerants
+Scoring: ImageLocalcity, NodeResourcesFit, Affinity, Taints+Tolerants
+Binding: Default Binder : Cơ chế ràng buộc (Đã chọn xong rồi mới tới cái này)

@@ -1,0 +1,12 @@
+ConfigMap:
+
+kubectl create configmap \
+	<config-name> --from-literal=<key>=<value>
+  	<config-name> --from-file=app_config.properties
+
+
+Xem số lượng configmap:
+- k get configmap
+
+Mô tả configmap:
+- k describe configmaps db-config

@@ -1,0 +1,3 @@
+Kubernetes provides additional support to check the health of applications running within PODs and take necessary actions through Liveness and Readiness Probes. 
+
+These are topics for the Certified Kubernetes Application Developers (CKAD) exam and are covered in the CKAD course.

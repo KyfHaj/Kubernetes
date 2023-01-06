@@ -1,0 +1,20 @@
+Xem Common Name (CN) configured on the Kube API Server Certificate?
+- openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
+với:
+/etc/kubernetes/pki/apiserver.crt là file (được mount ở local với kube-apiserver)
+9aeaae4f14487
+
+Xem container của các pod chạy (nếu ko có docker hoặc kube-apiserver bị hư)
+- crictl ps -a
+- crictl logs <container-id>: 
+	crictl logs 071334412e2f1
+
+
+--etcd-cafile=/etc/kubernetes/pki/ca.crt
+    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt
+    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+    - --etcd-servers=https://127.0.0.1:2379
+
+/etc/kubernetes/pki/etcd/ca.crt
+
+watch "crictl ps | grep etcd"

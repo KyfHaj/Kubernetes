@@ -1,0 +1,28 @@
+
+**Authen dành cho **User: Admin, Developer
+	hoặc		 **Service: Account (để tích hợp dịch vụ cho K8s)
+(Những thành phần góp phần cấu hình và triển khai app)
+
+**K8s không quản lý User mà dùng 1 tệp ngoài có thông tin User 
+nên ko thể: "kubectl crete, list user ..." (ko được)
+
+------------------------------------------------------------------
+Với K8s cho Admin thì chỉ quan tâm đến **User access
+**User access qua Kube-API. Kube-API sẽ authen User bằng:
+- Static Password File
+- Static Token File
+- Certificate
+- 3rd Identify Service như LDAT, Kerberos
+
+Với Static Password file: ví dụ: "user-details.csv":  "password123,user1,u001". Ta config kube-apiserver:
+--basic-auth-file=user-details.csv
+Để access:
+curl -v -k https://master-node-ip:6443/api/v1/pods -u "user1:password123"
+
+
+Với Static Token file: ví dụ user-token-details.csv: "Fg213nf0AASRQf9014,user1,u0". Ta config kube-apiserver:
+--token-auth-file=user-details.csv
+Để access:
+curl -v -k https://master-node-ip:6443/api/v1/pods --header "Authorization: Bearer Fg213nf0AASRQf9014"
+
+**Xem bài 140** chi tiết cho thiếp lập

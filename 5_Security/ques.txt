@@ -1,0 +1,1 @@
+ca.crt ở local. Nếu là User thì nó để xác thực certificate-server

@@ -1,0 +1,31 @@
+- CA (Certificate Author): thực chất là cặp key + certificate (dạng file).
+- Ai có quyền truy cập vào file này thì đều có thể ký cho các request sign(csa) mà các components gửi lên.
+- Với Kubeadm thì CA-server ở ngay trên master node. Nhưng K8s cung cấp Certificat-API để ký (sign) cho các request
+- Xử lý các certificate-request này là 3 thèn:
+	kube-apiserver
+     kube-scheduler
+	kube-controller-manager: Có 2 thành phần:
+		--cluster-signing-cert-file=...../ca.crt
+		--cluster-signing-cert-file=...../ca.key
+
+Tạo 1 CertificateSigningRequest cho akshay
+- Tạo key:
+openssl genrsa -out akshay.key 2048
+- Tạo request:
+openssl req -new -key akshay.key -subj "/CN=akshay" -out akshay.csr
+- Chuyển rsa thành dạng base 64
+cat akshay.csr | base64 -w 0 | tr -d "\n"
+- Tạo file yamlm, apply:
+vi aksha-crs.yamlk 
+apply -f=aksha-crs.yaml
+- Xem csr:
+kubectl get csr
+- Phê duyệt:
+kubectl certificate approve akshay
+- Từ chối:
+kubectl certificate deny akshay
+
+Desribe 1 request certificate:
+- k describe csr agent-smith
+Xóa csr (có thể xóa được cả thèn đã approved):
+- k delete csr agent-smith

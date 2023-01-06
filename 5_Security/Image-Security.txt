@@ -1,0 +1,12 @@
+Với docker:
+- docker login private-registry.io
+- docker run private-registry.io/apps/internal-app
+
+Với K8s:
+- Tham khảo https://skryvets.com/blog/2021/03/15/kubernetes-pull-image-from-private-ecr-registry/
+
+- Tạo secret 
+- Trong pod image: private-registry.io/apps/internal-app
+		  imagePullSecrets
+		  - name: abc
+		  imagePullPolicy: Always

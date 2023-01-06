@@ -1,0 +1,22 @@
+Khi Node đang chạy mà chết thì pod trên đó:
+1/ Nếu set replica thì nó sẽ được triển khai ở node khác
+2/ Nếu set replica thì nó đi luôn
+
+Cluster sẽ đợi node trong 5'(default). Quá thời gian thì coi như nó chết	(pod-eviction-timeout)
+
+Nếu sau đó Node phục hồi lại thì nó sẽ ko còn chứa Pod (pod ko replica sẽ mất luôn)
+
+
+------------------------------------------
+
+Khi cần update phần mềm cho node, ta rút node, các pod trên đó sẽ được cụm đưa cho các node khác: 
+- kubectl drain node-1 --ignore-daemonsets
+Khi có pod (lẻ) mà ko có repli thì phải thêm:
+- kubectl drain node-1 --ignore-daemonsets --force
+
+Lúc này node như nằm ngoài cụm, ko thể schedule cho nó. Ta có thể hoàn tác lại, sau khi đã update phần mềm cho nó:
+- kubectl uncordon node-1
+
+Đánh dấu 1 node để ko thể schedule (sẽ bị UnSchedulable):
+- kubectl cordon node-2
+

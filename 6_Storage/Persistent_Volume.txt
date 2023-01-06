@@ -1,0 +1,30 @@
+CRI: Container Runtime Interface (cách để làm việc với Container)
+CNI: Container Network Interface	
+CSI: Container Network Storage
+
+Tạo 1 Persistent volume có 2 cách:
+1/ Chỉ định trực tiếp qua 1 path, 1  trong file Pod hoặc
+2/ Tạo ra thực thể Persist volume(mount đến EBS,EFS,..) và Persist volume claim.
+   Chỉ định Persist volume qua Persist volume claim(mount pod với Persist volume).
+   Để dễ quản lý hơn cách 1
+
+Cơ chế của Persist volume claim:
+- PV (Persistent Volume) trong K8s hoạt động như 1 cluster (1 hồ chứa đã được cấu hình bởi admin) (slide trang 15)
+- PVC (Persisten Volume Claim) trong K8s sẽ tìm 1 PV thích hợp cho yêu cầu. Như vậy yêu cầu trong PVC có thể khác với đáp ứng của PV
+    Các loại yêu cầu từ PVC:
+        + sufficent capacity
+        + access mode
+        + volume mode
+        + Storage class
+        + Selector (loại này fix cứng) (nên dùng nếu muốn tự mình chọn, khỏi rắc rối)
+    Nếu ko thể đáp ứng được thì PVC sẽ đợi (pending state) đến khi có PV thích hợp và mount
+    Nếu mount thành công, dung lượng (capacity) mà container mount có được là của PV, ko phải dung lượng mà PVC request
+    Nếu delete PVC, PV có 3 chế độ "persistentVolumeReclaimPolicy":
+        Retain: Giữ lại nhưng các PVC khác ko thể lấy ("state: Released")
+        Recycle: Giữ lại và bị xóa sạch bên trong, các PVC khác có thể lấy
+        Delete: Bị xóa cùng PVC
+    Delete PVC thường bị treo máy vì nó thuộc Pod nên PVC chỉ chuyển sang "Terminate state"
+----------------------------------------------------------
+
+- Giống như Pod, PV tạo rồi ko thể sửa, chỉ xóa rồi tạo lại
+- PVC đã lấy PV nhưng chưa được Pod nào dùng sẽ ở state:Pending

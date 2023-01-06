@@ -1,0 +1,19 @@
+Author cho k8s == Đối tượng sau khi đã authen thì có quyền làm gì(giống permission aws)
+Các loại author_mode:
+Dùng cơ chế của K8s:
+    Trong cụm: (Đã fixed ko chỉnh sửa)
+    - Node  (quyền của Node làm gì)
+    - AlwaysAllow (Luôn cho)
+    - AlwaysDeny (Luôn từ chối)
+    Ngoài cụm:
+    - ABAC  (Theo User hoặc Group)
+    - RBAC  (Theo Role)
+Dùng cơ chế Author bên ngoài (slide 151):
+- Webhook  (Có 1 agent đặt trong cụm và kube-apiserver sẽ hỏi request của user có được phép ko)
+
+Có thể chỉ định nhiều mode:
+--authorization-mode=AlwaysAllow \\
+
+
+
+

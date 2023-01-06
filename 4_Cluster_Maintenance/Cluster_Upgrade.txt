@@ -1,0 +1,47 @@
+Với Google Cloud thì đơn giản 1 click
+Với Kubeadm thì:
+- Upgrade Master Node trước sẽ ko ảnh hưởng gì đến Worker Node nhưng trong quá trình upgrade sẽ không thể sử dụng các lệnh điều khiển hoặc ~ thứ trong MasterNode
+- Upgrade WorkerNode:
+Strategy_1:
+	Up tất cả 1 lúc
+Strategy_2:
+	Up từng cái 1 (chuyển các pod qua cho các Node khác)
+Strategy_2:
+	Thêm Node mới, chuyển Pod qua cho nó rồi up từ từ (CLoud)
+
+Nguyên tắc:
+8:03 udemy bài 125: Up cho kubeadm
+Demo:
+bài 126
+
+---------------------------------
+
+Xem version hiện tại:
+- k get node
+
+
+Upgrade master:
+k drain controlplane --ignore-daemonsets --force
+
+apt update
+apt-get install kubeadm=1.25.0-00
+kubeadm upgrade apply v1.25.0
+apt-get install kubelet=1.25.0-00 
+systemctl daemon-reload
+systemctl restart kubelet
+
+k uncordon controlplane
+
+Upgrade worker:
+k drain node1 --ignore-daemonsets --force
+
+ssh 10.27.75.3
+apt-get update
+apt-get install kubeadm=1.25.0-00
+kubeadm upgrade node
+apt-get install kubelet=1.25.0-00 
+systemctl daemon-reload
+systemctl restart kubelet
+
+exit
+k uncordon node01

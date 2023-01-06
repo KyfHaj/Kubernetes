@@ -1,0 +1,9 @@
+Để update deployment, ta edit deployment sau đó chạy lệnh sau nó sẽ update từng replicas một:
+- kubectl rollout status deployment/myapp
+
+Để xem history deployment myapp:
+- kubectl rollout history deployment/myapp
+
+Để lấy lại version cũ:
+- kubectl rollout undo deployment/myapp
+- kubectl rollout undo deployment/myapp --to-revision=2

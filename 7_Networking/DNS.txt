@@ -1,0 +1,21 @@
+Chỉnh sửa
+- cat >> /etc/hosts
+192.168.1.11 db
+
+Thay vì:
+- ping 192.168.1.11
+Ta có thể:
+- ping db
+
+
+Vì phải khai báo tên như kia nên thiết lập dns (domain-name-server) để dễ quản lý. Khi ko tìm thấy trong /etc/hosts, nó sẽ tìm trên DNS:
+- cat /etc/resolv.conf
+nameserver 192.168.1.100 : Đây là nameserver sẽ phân giải ra ip, có thể thêm bao nhiêu tùy thích (đúng địa chỉ DNS nhé!):
+nameserver 8.8.8.8 
+
+Có thể thay đổi để hỏi đến DNS trước bằng /etc/nsswitch.conf và đổi:
+- hosts:     file dns 
+lên đầu tiên. Thông thường sẽ là: - hosts:  etc/host file ở đầu tiên (phân giải ở local)
+
+- Khi đã hỏi DNS, hỏi lần 1 sẽ lưu ở cache và sau TTL nó sẽ hỏi lại
+- nslookup www.google.com chỉ query đến DNS server và tìm google

@@ -1,0 +1,12 @@
+vi replicate.yaml
+
+vi pods.yaml
+
+kubectl apply -f=pods.yaml,replicate.yaml
+
+kubectl get replicaset
+kubectl get rs
+
+kubectl edit rs new-replica-set
+
+kubectl delete replicaset replicaset-1 replicaset-2

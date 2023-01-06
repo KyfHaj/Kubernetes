@@ -1,0 +1,25 @@
+**Khi quản lý nhiều cụm:
+Xem số cluster k8s:
+- kubectl config get-clusters 
+
+Chuyển đến 1 cluster cụ thể, khi ở cụm này có thể kubectl như bình thường:
+- kubectl config use-context cluster_kyf
+
+Có thể ssh đến node của 2 cụm dù đang ở cụm nào:
+Đang ở cụm 2 có thể: ssh cluster1-controlplane	
+[
+	Cụm 2 sử dụng etcd ngoài vì 
+	--etcd-servers=https://10.55.138.21:2379
+	--etcd-servers=https://127.0.0.1:2379
+
+]
+
+Nếu đang ở trong 1 etcd-server (external), để xem config của nó:
+- ps -ef | grep etcd
+
+
+Xem memberlist của ETCD cluster(external) khi đang ở trong etcd server:
+- ETCDCTL_API=3 etcdctl  --endpoints=https://127.0.0.1:2379  --cacert=/etc/etcd/pki/ca.pem  --cert=/etc/etcd/pki/etcd.pem  --key=/etc/etcd/pki/etcd-key.pem   member list
+
+Với etcd-server (external) thì back up theo:
+

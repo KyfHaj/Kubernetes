@@ -1,0 +1,25 @@
+Edit a POD
+- Có 2 cách:
+
+1. 
+- kubectl edit pod <pod name>
+
+- kubectl delete pod webapp
+
+- kubectl create -f /tmp/kubectl-edit-ccvrq.yaml
+
+
+
+2. 
+- kubectl get pod webapp -o yaml > my-new-pod.yaml
+
+- vi my-new-pod.yaml
+
+- kubectl delete pod webapp
+
+- kubectl create -f my-new-pod.yaml
+
+
+Edit Deployments
+
+- kubectl edit deployment my-deployment

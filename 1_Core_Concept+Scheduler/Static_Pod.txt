@@ -1,0 +1,26 @@
+Static Pod:
+- Pod được tạo bởi Kubelet(ở 1 Node cụ thể) mà ko có sự can thiệp của các thành phần khác trong cụm K8s
+
+Bằng cách tạo file Pod.yaml trong /etc/kubernetes/manifest (ko thể tạo service, deployment,replicaset bằng cách này)
+
+
+Tìm theo: pod manifest path 
+		nếu ko có thì config option	
+
+- Vẫn có thấy Static pod trong: kubectl get pod
+- Nhưng ko thể xóa chúng theo cách: kubectl delete pod <podname>
+
+
+Xem tất cả các static_pod:
+- kubectl get pods --all-namespaces -o json | jq -r '.items | map(select(.metadata.ownerReferences[]?.kind == "Node" ) | .metadata.name) | .[]'
+
+
+Xem file config của controlplane(master node):
+- cat /var/lib/kubelet/config.yaml
+Xem tất cả static pod tại địa chỉ: staticPodPath: /etc/kubernetes/manifests
+- ls /etc/kubernetes/manifests
+
+
+Tạo static pod với Name: static-busybox, Image: busybox, command là sleep 1000:
+- kubectl run static-busybox --image=busybox --dry-run=client -o yaml --command -- sleep 1000 > static.yaml
+- cp static.yaml /etc/kubernetes/manifests

@@ -1,0 +1,30 @@
+** Kubectl thực chất là 1 tool để tạo API request đến kube-apiserver và ko bị cluster nào quản lý
+1 kubectl ở 1 server có thể request tới K8s khác nhau trên nhiều nền tảng khác nhau như: EKS,Google,...
+
+** 1 User có thể xem pod bằng crt,key,ca.crt (bộ 3 xác thực) của nó bằng gửi 1 request:
+- curl https://my-kube-playground:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
+- curl https://kube-apiserver:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
+
+** Cũng có thể sử dụng commands:
+- kubectl get pods --client-key admin.key --client-certificate admin.crt --certificate-authority ca.crt
+
+** Hoặc cũng có thể tạo 1 config file:
+- kubectl get pods --kubeconfig config
+Mặc định, k8s sẽ tìm kiếm file config này ở user's home directory (/root/.kube/config)
+nên ko phải chỉ rõ path mà chỉ cần đặt file config ở home_dir (/root/.kube/config)
+
+** 1 kubeconfig file có 4 phần:
+- Clusters: Cụm nào (có thể có nhiều cụm)
+- Contexts: Mount Cluster và User
+- User: Người nào
+- Current-context: Hiện tại sử dụng quyền nào(User) để vào Cluster nào
+(Trang 124 slide)
+-----------------------------------------------------------------------
+
+** Để xem config file (home directory là mặc định):
+kubectl config view
+kubectl config view --kubeconfig my-kube-config
+
+** Để thay đổi Current-context:
+kubectl config use-context prod-user@production
+hoặc vào file sửa luôn cũng được

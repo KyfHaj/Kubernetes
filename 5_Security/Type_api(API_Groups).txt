@@ -1,0 +1,20 @@
+/api/v1 (slide 134) hoặc xem:
+- curl http://localhost:6443 -k
+- curl http://localhost:6443/api/v1 -k
+/apis (slide 135) hoặc xem:
+- curl http://localhost:6443/apis -k | grep “name”
+- curl http://localhost:6443/apis
+Thích xem gì xem tùy api call tới
+
+** Nếu cần authen:
+- curl http://localhost:6443 -k --client-key admin.key --client-certificate admin.crt --certificate-authority ca.crt
+- curl http://localhost:6443/apis --client-key admin.key --client-certificate admin.crt --certificate-authority ca.crt
+- curl http://localhost:6443/apis -k | grep “name” --client-key admin.key --client-certificate admin.crt --certificate-authority ca.crt
+
+** Hoặc authen dùng:
+- kubectl proxy
+kubectl proxy sẽ dùng file config(.kube/config) ở homedir để authen sau đó có thể gõ:
+- curl http://localhost:6443 -k
+- curl http://localhost:6443/apis -k | grep “name”
+- curl http://localhost:6443/apis
+*** kubectl proxy ≠ kube-proxy

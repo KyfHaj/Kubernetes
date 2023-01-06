@@ -1,0 +1,2 @@
+command trong k8s đè lên ENTRYPOINT trong Dockerfile
+arg trong k8s đè lên CMD trong Dockerfile

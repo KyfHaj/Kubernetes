@@ -1,0 +1,16 @@
+** Với Docker:
+*docker container chia sẻ chung 1 kernel, khi nhiều container chạy ta gõ:"ps aux" sẽ thấy chúng đang chạy cùng trên kernel nhưng khác -namespace
+
+*docker chạy trong và ngoài container đều dùng root user (root trong, root ngoài). Có thể set USER trong Dockerfile
+
+*root trong docker-container bị hạn chế quyền < root ở local(đấng toàn năng)
+*Có thể thêm quyền cho root của docker-container bằng:
+- docker run --cap-add MAC_ADMIN ubuntu
+- docker run --cap-add KIL ubuntu
+- docker run --cap-drop MAC_ADMIN ubuntu 
+- docker run --privileged ubuntu
+
+** Tương tự trong K8s:
+- Có thể thêm, bớt quyền cho root của container hoặc pod. Xem file pod-container-security.yaml
+
+

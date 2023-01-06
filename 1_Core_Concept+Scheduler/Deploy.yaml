@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: repli-myapp
+  labels:
+    type: replica
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: my-nginx
+        type: front-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end

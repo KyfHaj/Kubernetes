@@ -1,0 +1,7 @@
+Node và 1 số resource (slide 169) không thể tách biệt ra Namespace:
+- kubectl api-resources --namespaced=false
+Các tài nguyên dính với namespace:
+- kubectl api-resources --namespaced=true
+
+** Cluster role để chia tài nguyên, như vậy có nhiều loại admin quản lý cụm riêng của mình: Storage Admin, Cluster Admin. Cũng như RBAC có 2 loại cấu hình là cluster-role.yaml và cluster-role_binding.yaml. Sau đó:
+- kubectl apply -f=<...>

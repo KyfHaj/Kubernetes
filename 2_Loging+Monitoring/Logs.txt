@@ -1,0 +1,8 @@
+Với 1 app triển khai trong 1 container sinh ra logs:
+- Xem logs được tạo ra (nếu có 1 container):
+kubectl logs -f <tên Pod>
+- Xem logs được tạo ra (nếu có nhiều containers) trong 1 container nhất định:
+kubectl logs -f <tên Pod> <tên container>
+
+- Xem logs ở 1 file xác định trong 1 container xác định:
+kubectl exec -it app -- cat /log/app.log
